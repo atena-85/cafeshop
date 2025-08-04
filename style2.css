@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'MyFont';
+    src: url('./font/Blabeloo.ttf') format('truetype');
+}
+
+body {
+    background: #111;
+    color: #eee;
+    font-family: 'MyFont', sans-serif;
+    direction: rtl;
+    text-align: center;
+    padding: 100px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #d4a373;
+}

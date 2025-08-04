@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>پرداخت سفارش</title>
+    <style>
+        /* فونت پیشنهادی برای فارسی */
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+
+        body {
+            background-color: #111;
+            color: #f0f0f0;
+            font-family: 'Vazirmatn', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .checkout-box {
+            background-color: #1f1f1f;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 0 10px #222;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .checkout-box h2 {
+            color: #d4a373;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .item-details {
+            margin: 20px 0;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+            line-height: 1.8;
+        }
+
+        .item-details p {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background-color: #d4a373;
+            color: #111;
+            border: none;
+            padding: 12px 20px;
+            margin: 10px 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #e7b17a;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 1.1rem;
+            color: #80ffcc;
+            line-height: 1.6;
+            border-top: 1px dashed #333;
+            padding-top: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="checkout-box">
+    <h2>پرداخت سفارش</h2>
+    <div class="item-details" id="itemDetails">
+        <p>در حال بارگذاری آیتم...</p>
+    </div>
+
+    <button class="btn" onclick="pay('cash')">پرداخت حضوری (دم صندوق)</button>
+    <button class="btn" onclick="pay('online')">پرداخت اینترنتی</button>
+
+    <div class="result" id="resultBox"></div>
+</div>
+
+<script>
+    const items = {
+        "coffee1": {name: "قهوه اسپرسو", price: "45,000 تومان", desc: "قهوه تیره و خوش‌عطر"},
+        "cake1": {name: "کیک شکلاتی", price: "65,000 تومان", desc: "کیک شکلاتی تازه پخته‌شده"},
+        // 👇 آیتم‌های بیشتری می‌تونی اینجا اضافه کنی
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const itemId = params.get("item");
+    const item = items[itemId];
+
+    const itemDetails = document.getElementById("itemDetails");
+    if (item) {
+        itemDetails.innerHTML = `
+        <p><strong>نام آیتم:</strong> ${item.name}</p>
+        <p><strong>قیمت:</strong> ${item.price}</p>
+        <p><strong>توضیحات:</strong> ${item.desc}</p>
+      `;
+    } else {
+        itemDetails.innerHTML = "<p>آیتم پیدا نشد.</p>";
+    }
+
+    function pay(method) {
+        const result = document.getElementById("resultBox");
+        if (method === "cash") {
+            result.innerHTML = "سفارش شما ثبت شد. لطفاً به صندوق مراجعه کنید.";
+        } else {
+            const code = Math.floor(100000 + Math.random() * 900000);
+            result.innerHTML = `پرداخت موفق بود ✅<br>کد پیگیری شما: <strong>#${code}</strong>`;
+        }
+    }
+</script>
+
+</body>
+</html>
